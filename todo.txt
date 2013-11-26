@@ -1,0 +1,2 @@
+設定関係を読む処理を一つのクラスにまとめる。
+PreferenceKey.java と readPreferenceメソッド達をあわせる

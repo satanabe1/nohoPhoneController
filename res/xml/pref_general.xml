@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <PreferenceCategory android:title="Command"><EditTextPreference android:capitalize="words" android:defaultValue="@string/pref_doubletap_default" android:inputType="textCapWords" android:key="pref_doubletap" android:maxLines="1" android:selectAllOnFocus="true" android:singleLine="true" android:title="@string/pref_doubletap_title" /><EditTextPreference android:defaultValue="@string/pref_volup_default" android:title="@string/pref_volup_title" android:key="pref_volup" /><EditTextPreference android:defaultValue="@string/pref_voldown_default" android:title="@string/pref_voldown_title" android:key="pref_voldown" /></PreferenceCategory><PreferenceCategory android:title="Environment">
+    <ListPreference android:entryValues="@array/pref_hands" android:entries="@array/pref_hands" android:key="pref_hand" android:title="@string/pref_hand_title" android:defaultValue="left"/><EditTextPreference android:key="pref_servername" android:defaultValue="@string/pref_servername_default" android:title="@string/pref_servername_title" /><EditTextPreference android:defaultValue="@string/pref_serverport_default" android:title="@string/pref_serverport_title" android:key="pref_serverport" />
+    <ListPreference android:entryValues="@array/pref_scale_entries" android:defaultValue="100%" android:entries="@array/pref_scale_entries" android:title="@string/pref_scale_title" android:key="pref_scale" /><SwitchPreference android:title="DebugMode" android:key="pref_debug_switch" android:defaultValue="true"/>
+    
+    
+</PreferenceCategory>
+
+    <!--
+         NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it.
+    -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    
+    
+    
+    
+    
+    
+    
+    
+
+</PreferenceScreen>

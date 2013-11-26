@@ -1,0 +1,43 @@
+<resources>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+
+    <!-- Example General settings -->
+    <string name="pref_hand_title">Hand</string><string-array name="pref_hands">
+        <item >left</item>
+        <item >right</item>
+    </string-array><string name="pref_doubletap_title">DoubleTap</string>
+    <string name="pref_doubletap_default">anchorL</string>
+
+    <!-- Example settings for Data & Sync -->
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_volup_title">Volume UP</string>
+    <string name="pref_volup_default">anchorL</string>
+    <string name="pref_voldown_title">Volume Down</string>
+    <string name="pref_voldown_default">anchorL</string>
+    
+    
+    <string name="pref_servername_title">ServerName</string>
+    <string name="pref_servername_default">localhost</string>
+    <string name="pref_serverport_title">PortNumber</string>
+    <string name="pref_serverport_default">8088</string>
+    <string name="pref_scale_title">MotionScale</string>
+    <integer-array name="pref_scale_values">
+        <item >70</item>
+        <item >100</item>
+        <item >130</item>
+        <item >200</item>
+    </integer-array>
+    <string-array name="pref_scale_entries">
+        <item >70%</item>
+        <item >100%</item>
+        <item >130%</item>
+        <item >200%</item>
+    </string-array>
+    
+
+</resources>
