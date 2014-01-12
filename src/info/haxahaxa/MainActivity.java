@@ -98,6 +98,7 @@ public class MainActivity extends Activity {
 		keyWhisper.readPreference();
 	}
 
+	@Override
 	public void onPause() {
 		getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

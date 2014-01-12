@@ -4,5 +4,5 @@ public class Environment {
 
 	public static final String project = "nohoPhoneController";
 
-	public static final String device = "OreOre#" + android.os.Build.ID;
+	public static final String device = "Ore#" + android.os.Build.ID;
 }

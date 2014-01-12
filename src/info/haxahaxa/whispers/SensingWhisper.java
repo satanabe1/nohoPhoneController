@@ -66,13 +66,18 @@ public class SensingWhisper implements IWhisper, SensorEventListener {
 		sensorManager.unregisterListener(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void resume() {
+		// sensorManager.registerListener(this,
+		// sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+		// SensorManager.SENSOR_DELAY_NORMAL);
+		// sensorManager.registerListener(this,
+		// sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+		// SensorManager.SENSOR_DELAY_GAME);
 		sensorManager.registerListener(this,
-				sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-				SensorManager.SENSOR_DELAY_NORMAL);
-		sensorManager.registerListener(this,
-				sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-				SensorManager.SENSOR_DELAY_NORMAL);
+				sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+				SensorManager.SENSOR_DELAY_GAME);
+
 		baseYaw = lastYaw;
 	}
 
@@ -81,14 +86,56 @@ public class SensingWhisper implements IWhisper, SensorEventListener {
 		// TODO Auto-generated method stub
 	}
 
-	private int mask = -2;
+	private int mask = -4;
 	private int yR = 0;
 	private int zR = 0;
 	private int xR = 0;
 	private int lastYaw;
 
 	@Override
+	// @SuppressWarnings("deprecation")
 	public void onSensorChanged(SensorEvent event) {
+		int yaw = yR;
+		int pitch = zR;
+		int roll = xR;
+
+		yaw = (int) (event.values[0]) * -1;
+		if (yaw != 0) {
+			lastYaw = yaw;
+		}
+		yaw -= baseYaw;
+		// 傾きセンサでpitchとroll
+		pitch = (int) (event.values[1]);
+		roll = (int) (event.values[2]);
+
+		roll &= mask;
+		pitch &= mask;
+		yaw &= mask;
+		if (xR == roll && yR == yaw && zR == pitch) {
+			return;
+		}
+		xR = roll;
+		yR = yaw;
+		zR = pitch;
+
+		// yR -= baseYaw;
+		// zR = (int) (attitude[1] * RAD2DEG);
+		// xR = (int) (attitude[2] * RAD2DEG);
+		//
+		azimText.setText("azim:(" + baseYaw + ")" + yR);
+		pitchText.setText("pitch:" + zR);
+		rollText.setText("roll :" + xR);
+
+		try {
+			String json = JsonGenerator.toJson("name", Environment.device,
+					"type", hand, "x", xR, "y", yR, "z", zR);
+			write(json);
+		} catch (Exception ex) {
+			Log.e(tag, "Socket out", ex);
+		}
+	}
+
+	public void onSensorChanged2(SensorEvent event) {
 		// TODO Auto-generated method stub
 
 		switch (event.sensor.getType()) {
@@ -108,6 +155,7 @@ public class SensingWhisper implements IWhisper, SensorEventListener {
 			SensorManager.getOrientation(rotationMatrix, attitude);
 
 			int yaw = (int) (attitude[0] * RAD2DEG);
+			// int yaw = (int) (attitude[0]);
 			if (yaw != 0) {
 				lastYaw = yaw;
 			}
@@ -126,10 +174,6 @@ public class SensingWhisper implements IWhisper, SensorEventListener {
 			yR = yaw * -1;
 			zR = pitch;
 
-			// yR -= baseYaw;
-			// zR = (int) (attitude[1] * RAD2DEG);
-			// xR = (int) (attitude[2] * RAD2DEG);
-			//
 			azimText.setText("azim :" + yR);
 			pitchText.setText("pitch:" + zR);
 			rollText.setText("roll :" + xR);

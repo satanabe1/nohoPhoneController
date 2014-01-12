@@ -22,7 +22,7 @@ public class WhisperCoreThreadImpl implements IWhisperCore {
 	@Override
 	public void write(String text) {
 		SendThread sendThread = new SendThread(iadd, port, text.getBytes());
-		sendThread.run();
+		sendThread.start();
 	}
 
 	/**
@@ -39,10 +39,10 @@ public class WhisperCoreThreadImpl implements IWhisperCore {
 			this.iadd = iadd;
 			this.port = port;
 			this.outdata = outdata;
+			setDaemon(true);
 		}
 
 		public void run() {
-			setDaemon(true);
 			try {
 				DatagramSocket dsock = new DatagramSocket();
 				DatagramPacket dpack = new DatagramPacket(outdata,
